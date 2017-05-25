@@ -2,27 +2,34 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import actions from '../actions';
-import styles from '../styles.css';
+import Contents from '../components/Contents';
+import Articles from '../components/Articles';
+import CreateNewArticle from '../components/CreateNewArticle';
 
+import actions from '../actions';
 
 const Main = ({
-	blogs
+	contents,
+	articles,
+	newArticle,
+	currentArticle,
+	updateCurrentArticle,
+	editNewArticleTitle,
+	editNewArticleContent,
+	saveNewArticle,
+	deleteArticle
 }) =>
-	<div>
-		{
-			blogs.articles.map((article, i) =>
-				<div key={i}>
-					<h2>{article.title}</h2>
-					<p>{article.date}</p>
-					<div dangerouslySetInnerHTML={{ __html: article.content }}></div>
-				</div>
-			)
-		}
+	<div id='main'>
+		<Contents contents={contents} updateCurrentArticle={updateCurrentArticle}/>
+		<Articles currentArticle={currentArticle} articles={articles} deleteArticle={deleteArticle}/>
+		<CreateNewArticle newArticle={newArticle} editNewArticleTitle={editNewArticleTitle} editNewArticleContent={editNewArticleContent} onSubmit={ e => saveNewArticle(newArticle)}/>
 	</div>
 
 const mapStateToProps = state => ({
-	blogs: state.blogs
+	articles: state.articles,
+	contents: state.contents,
+	newArticle: state.newArticle,
+	currentArticle: state.currentArticle
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

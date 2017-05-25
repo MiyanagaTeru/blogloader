@@ -18,6 +18,28 @@ app.get("/", function(req, res) {
 	res.sendFile(__dirname + '/index.html')
 })
 
+app.post('/initArticles', function(req, res) {
+
+	var filePath = __dirname + '/data/articles.json';
+	fs.readFile(filePath, function (err, data) {
+		if (err) throw err;
+		res.type('json');
+		res.end(data.sort((a, b) => b.date - a.date));
+	});
+});
+
+app.post('/saveArticles', function(req, res) {
+
+	var fullContentFilePath = __dirname + '/data/articles.json'
+
+	fs.writeFile(fullContentFilePath, JSON.stringify(JSON.parse(req.body), null, 4), function(err, data) {
+		if (err) throw err;
+		res.type('json');
+		res.end( req.body);
+	});
+
+})
+
 app.listen(port, function(error) {
 	if (error) {
 		console.error(error)
