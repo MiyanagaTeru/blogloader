@@ -15,10 +15,16 @@ const asyncSaveArticles = () =>
 			}
 		).then(
 			response =>
-				dispatch({
-					type: 'UPDATE_CONTENT',
-					articles: response.articles
-				})
+				Promise.all([
+					dispatch({
+						type: 'UPDATE_CONTENT',
+						articles: response.articles
+					}),
+					dispatch({
+						type: 'INIT_ARTICLES',
+						articles: response.articles
+					})
+				])
 		)
 
 

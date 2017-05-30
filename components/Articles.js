@@ -4,7 +4,7 @@ import styles from './styles.css';
 const Articles = ({ currentArticle, articles, deleteArticle }) =>
 	<div className={styles.articles}>
 		{
-			currentArticle.title ?
+			articles.length > 0 ?
 				<div className={styles.article}>
 					<span className={styles.deleteArticle} onClick={ e => deleteArticle(currentArticle.id)}>Delete this article</span>
 					<h2>{currentArticle.title}</h2>

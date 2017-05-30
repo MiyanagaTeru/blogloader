@@ -1,32 +1,31 @@
 import React from 'react';
-import TinyMCE from 'react-tinymce';
+import TinyMCEInput from 'react-tinymce-input';
 
 import styles from './styles.css';
 
 const CreateNewArticle = ({
+	display,
 	newArticle,
 	editNewArticleTitle,
 	editNewArticleContent,
 	onSubmit
 }) =>
+	display ?
 	<div>
 		<form
 			onSubmit={ e => {
 				e.preventDefault();
 				onSubmit();
+
 			}} >
 			Title: <input type='text' name='title' value={newArticle.title || ''} required onChange={ e => editNewArticleTitle(e.target.value)} />
-			<TinyMCE
-				content={newArticle.content || ''}
-				config={{
-					plugins: 'link image code',
-					toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
-				}}
-				onChange={e => editNewArticleContent(e.target.getContent())}
-				onKeyup={(event, editor) => editNewArticleContent(editor.getContent())}
+			<TinyMCEInput
+				value={newArticle.content || ''}
+				onChange={content => editNewArticleContent(content)}
 			/>
 			<input type='submit' value='Submit' />
 		</form>
-	</div>
+	</div> :
+	<div></div>
 
 export default CreateNewArticle;

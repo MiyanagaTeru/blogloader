@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import Contents from '../components/Contents';
 import Articles from '../components/Articles';
-import CreateNewArticle from '../components/CreateNewArticle';
 
 import actions from '../actions';
 
@@ -22,7 +21,6 @@ const Main = ({
 	<div id='main'>
 		<Contents contents={contents} updateCurrentArticle={updateCurrentArticle}/>
 		<Articles currentArticle={currentArticle} articles={articles} deleteArticle={deleteArticle}/>
-		<CreateNewArticle newArticle={newArticle} editNewArticleTitle={editNewArticleTitle} editNewArticleContent={editNewArticleContent} onSubmit={ e => saveNewArticle(newArticle)}/>
 	</div>
 
 const mapStateToProps = state => ({

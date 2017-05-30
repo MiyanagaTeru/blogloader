@@ -3,7 +3,7 @@ import moment from 'moment';
 const articles = (state = [], action) => {
 	switch (action.type) {
 		case 'INIT_ARTICLES':
-			return action.articles;
+			return action.articles.sort((a, b) => b.date - a.date);
 
 		case 'SAVE_NEW_ARTICLE':
 			if (!!action.content) {
@@ -22,10 +22,12 @@ const articles = (state = [], action) => {
 			}
 		case 'DELETE_ARTICLE':
 			const targetIndex = state.findIndex( obj => obj.id === action.id );
-			return [
-				...state.slice(0, targetIndex),
-				...state.slice(targetIndex + 1)
-			];
+			return targetIndex === 0 ?
+				[] :
+				[
+					...state.slice(0, targetIndex),
+					...state.slice(targetIndex + 1)
+				];
 		default:
 			return state;
 	}

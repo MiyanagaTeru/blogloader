@@ -24,7 +24,7 @@ app.post('/initArticles', function(req, res) {
 	fs.readFile(filePath, function (err, data) {
 		if (err) throw err;
 		res.type('json');
-		res.end(data.sort((a, b) => b.date - a.date));
+		res.end(data);
 	});
 });
 
