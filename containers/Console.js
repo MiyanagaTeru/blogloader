@@ -8,40 +8,21 @@ import actions from '../actions';
 import styles from './Console.css';
 
 class Console extends React.Component {
-	constructor() {
-		super();
-		this.state = { display: false }
-	}
 	render() {
 		const {
 			consoleBar,
 			newArticle,
 			elementStatus,
+			currentArticle,
 			switchComponent,
 			editConsoleBar,
 			editNewArticleTitle,
 			editNewArticleContent,
 			saveNewArticle,
+			deleteArticle
 		} = this.props
 		return (
-			<div id='consoleDiv' className={elementStatus.consoleDiv ? '': styles.hidden}>
-				<input className={styles.consoleBar} name='consoleBar' type='text' value={consoleBar}
-					onChange={ e => {
-						editConsoleBar(e.target.value)
-					}}
-					onKeyUp={ e => {
-						console.log(e.key)
-						switch (e.key) {
-							case 'Enter':
-								const commandsList = ['new', 'edit', 'delete']
-									if (commandsList.indexOf(consoleBar) > -1) {
-										switchComponent(consoleBar);
-										editConsoleBar('');
-									}
-							default:
-						}
-					}}
-				/>
+			<div className={`${styles.consoleDiv} ${elementStatus.consoleDiv ? '': styles.hidden}`}>
 				<CreateNewArticle
 					display={!!elementStatus.new}
 					newArticle={newArticle}
@@ -49,25 +30,59 @@ class Console extends React.Component {
 					editNewArticleContent={editNewArticleContent}
 					onSubmit={ e => saveNewArticle(newArticle)}
 				/>
+
+				<form onSubmit={ e => {
+					e.preventDefault();
+					switch (consoleBar) {
+						case 'new':
+							switchComponent('new');
+							editConsoleBar('');
+							break;
+						case 'edit':
+							switchComponent('edit');
+							editConsoleBar('');
+							break;
+						case 'delete':
+							deleteArticle(currentArticle.id);
+							editConsoleBar('');
+							break;
+						default:
+					}
+				}}
+				>
+					<input
+						className={styles.consoleBar}
+						name='consoleBar'
+						type='text'
+						value={consoleBar}
+						onChange={ e => {
+							editConsoleBar(e.target.value)
+						}}
+						ref={(input) => { this.nameInput = input; }}
+					/>
+					<input type='submit' hidden/>
+				</form>
+
 			</div>
 		);
 	}
 	componentDidMount() {
 		document.addEventListener('keyup', e => {
 			if (e.ctrlKey && e.keyCode === 192) {
-				this.props.toggleConsoleDiv()
+				this.props.toggleConsoleDiv();
+				if (this.props.elementStatus.consoleDiv) {
+					this.nameInput.focus();
+				}
 			}
 		})
-	}
-	componentWillReceiveProps(props) {
-		this.setState({ display: props.elementStatus.consoleWrapper })
 	}
 }
 
 const mapStateToProps = state => ({
 	consoleBar: state.consoleDiv.consoleBar,
 	newArticle: state.consoleDiv.newArticle,
-	elementStatus: state.consoleDiv.elementStatus
+	elementStatus: state.consoleDiv.elementStatus,
+	currentArticle: state.currentArticle
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(actions, dispatch);

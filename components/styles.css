@@ -2,40 +2,65 @@
 body {
 	background: #f8f8f8;
 }
-
+#main {
+	width: 100%;
+	max-width: 960px;
+	margin: 0px auto 40px;
+	position: relative;
+}
 .contents {
 	width: 30%;
 	display: inline-block;
-	padding: 50px;
-}
-.fixedContents {
+	padding: 20px;
 	position: fixed;
 	top: 0;
-	left: 0;
 }
+.contents ul {
+	padding-top: 30px;
+}
+
 .listItem {
-	padding-left: 1rem;
-}
-.articleLink {
+	color: #666;
 	cursor: pointer;
 }
+
+.activeArticle {
+	color: #cc7a6f;
+}
+
 .articles {
 	width: 70%;
 	display: inline-block;
-	padding: 50px;
+	padding: 20px;
+}
+
+:global .slowDisplay-enter {
+	opacity: 0.01;
+}
+
+:global .slowDisplay-enter.slowDisplay-enter-active {
+	opacity: 1;
+	transition: opacity 300ms ease-out;
+}
+
+
+.articleTitle {
+	font-weight: bold;
+	font-size: 2em;
+	padding-bottom: 20px;
 }
 .article {
-	margin: 30px 10px;
-	background: #eee;
-	position: relative;
-}
-.deleteArticle {
-	position: absolute;
-	right: 10px;
-	top: 0;
-	background: #fff;
-	border: 1px solid red;
+	border: 1px solid #ddd;
 	border-radius: 5px;
-	padding: 2px;
-	cursor: pointer;
+	padding: 30px;
 }
+.article p {
+	line-height: 1.5;
+	padding: 0.5em 0;
+	color: #1e1e1e;
+}
+
+:global .mce-tinymce {
+	box-sizing: border-box !important;
+}
+

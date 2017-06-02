@@ -22,7 +22,7 @@ const articles = (state = [], action) => {
 			}
 		case 'DELETE_ARTICLE':
 			const targetIndex = state.findIndex( obj => obj.id === action.id );
-			return targetIndex === 0 ?
+			return targetIndex === 0 && state.length === 1 ?
 				[] :
 				[
 					...state.slice(0, targetIndex),

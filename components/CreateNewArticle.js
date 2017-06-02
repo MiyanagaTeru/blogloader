@@ -1,7 +1,7 @@
 import React from 'react';
-import TinyMCEInput from 'react-tinymce-input';
+import TinyMCEInput from 'react-tinymce';
 
-import styles from './styles.css';
+import styles from '../containers/Console.css';
 
 const CreateNewArticle = ({
 	display,
@@ -11,17 +11,38 @@ const CreateNewArticle = ({
 	onSubmit
 }) =>
 	display ?
-	<div>
+	<div className={styles.createNewArticleWrapper}>
 		<form
 			onSubmit={ e => {
 				e.preventDefault();
 				onSubmit();
 
 			}} >
-			Title: <input type='text' name='title' value={newArticle.title || ''} required onChange={ e => editNewArticleTitle(e.target.value)} />
+			<div className={styles.newArticleTitle}>
+				<label>
+					<input
+						type='text'
+						name='title'
+						value={newArticle.title || ''}
+						placeholder='在这里输入标题'
+						required
+						onChange={ e => editNewArticleTitle(e.target.value)}
+						autoFocus
+					/>
+				</label>
+			</div>
 			<TinyMCEInput
-				value={newArticle.content || ''}
-				onChange={content => editNewArticleContent(content)}
+				content={newArticle.content || ''}
+				config={
+					{
+						height: 600,
+						branding: false,
+						plugins: 'preview',
+						content_css: 'css/tinyMCE.css'
+					}
+				}
+				// onSetupEditor={ editor => editor.on('change',  console.log('ahahahaha')) }
+				onNodeChange={e => editNewArticleContent(e.target.getContent())}
 			/>
 			<input type='submit' value='Submit' />
 		</form>

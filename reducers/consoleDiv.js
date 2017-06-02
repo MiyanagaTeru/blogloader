@@ -2,7 +2,10 @@
 const initialState = {
 	newArticle: {},
 	consoleBar: '',
-	elementStatus: {}
+	elementStatus: {
+		consoleDiv: true,
+		new: true
+	}
 };
 
 const consoleDiv = (state = initialState, action) => {

@@ -15,12 +15,11 @@ const Main = ({
 	updateCurrentArticle,
 	editNewArticleTitle,
 	editNewArticleContent,
-	saveNewArticle,
-	deleteArticle
+	saveNewArticle
 }) =>
-	<div id='main'>
-		<Contents contents={contents} updateCurrentArticle={updateCurrentArticle}/>
-		<Articles currentArticle={currentArticle} articles={articles} deleteArticle={deleteArticle}/>
+	<div>
+		<Articles currentArticle={currentArticle} articles={articles}/>
+		<Contents currentArticle={currentArticle} articles={articles} updateCurrentArticle={updateCurrentArticle}/>
 	</div>
 
 const mapStateToProps = state => ({
