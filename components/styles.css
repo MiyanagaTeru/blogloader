@@ -22,8 +22,10 @@ body {
 .listItem {
 	color: #666;
 	cursor: pointer;
+	padding-bottom: .5rem;
 }
 
+.listItem:hover,
 .activeArticle {
 	color: #cc7a6f;
 }

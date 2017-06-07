@@ -28,6 +28,15 @@ const articles = (state = [], action) => {
 					...state.slice(0, targetIndex),
 					...state.slice(targetIndex + 1)
 				];
+		case 'SAVE_EDITED_ARTICLE':
+			const editedArticleIndex = state.findIndex( obj => obj.id === action.editingArticle.id );
+			return editedArticleIndex === 0 && state.length === 1 ?
+				[action.editingArticle] :
+				[
+					...state.slice(0, editedArticleIndex),
+					action.editingArticle,
+					...state.slice(editedArticleIndex + 1)
+				];
 		default:
 			return state;
 	}

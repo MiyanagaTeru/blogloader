@@ -21,3 +21,23 @@ export const editConsoleBar = content => ({
 	type: 'EDIT_CONSOLE_BAR',
 	content
 })
+
+export const loadCurrentArticleToEditor = article => ({
+	type: 'EDIT_LOAD_CURRENT_ARTICLE',
+	article
+})
+
+export const editingArticleTitle = title => ({
+	type: 'EDIT_ARTICLE_TITLE',
+	title
+})
+
+export const editingArticleContent = content => ({
+	type: 'EDIT_ARTICLE_CONTENT',
+	content
+})
+
+export const saveEditedArticle = editingArticle => ({
+	type: 'SAVE_EDITED_ARTICLE',
+	editingArticle
+})
