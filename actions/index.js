@@ -1,6 +1,6 @@
 import asyncSaveArticles from './asyncSaveArticles';
 import asyncInitArticles from './asyncInitArticles';
-import { toggleConsoleDiv, switchComponent, editConsoleBar, editNewArticleTitle, editNewArticleContent } from './consoleDiv';
+import { toggleConsoleDiv, switchComponent, editConsoleBar, editNewArticleTitle, editNewArticleContent, loadCurrentArticleToEditor, editingArticleTitle, editingArticleContent, saveEditedArticle } from './consoleDiv';
 import saveNewArticle from './saveNewArticle';
 import deleteArticle from './deleteArticle';
 import updateCurrentArticle from './updateCurrentArticle';
@@ -14,6 +14,10 @@ const actions = {
 	editConsoleBar,
 	editNewArticleTitle,
 	editNewArticleContent,
+	saveEditedArticle,
+	loadCurrentArticleToEditor,
+	editingArticleTitle,
+	editingArticleContent,
 	saveNewArticle,
 	deleteArticle,
 	updateCurrentArticle,

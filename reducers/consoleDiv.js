@@ -1,11 +1,9 @@
 // a place to store consoleDiv
 const initialState = {
 	newArticle: {},
+	editingArticle: {},
 	consoleBar: '',
-	elementStatus: {
-		consoleDiv: true,
-		new: true
-	}
+	elementStatus: {}
 };
 
 const consoleDiv = (state = initialState, action) => {
@@ -51,6 +49,32 @@ const consoleDiv = (state = initialState, action) => {
 			return {
 				...state,
 				newArticle: {}
+			};
+		case 'EDIT_LOAD_CURRENT_ARTICLE':
+			return {
+				...state,
+				editingArticle: action.article
+			};
+		case 'EDIT_ARTICLE_TITLE':
+			return {
+				...state,
+				editingArticle: {
+					...state.editingArticle,
+					title: action.title
+				}
+			};
+		case 'EDIT_ARTICLE_CONTENT':
+			return {
+				...state,
+				editingArticle: {
+					...state.editingArticle,
+					content: action.content
+				}
+			};
+		case 'SAVE_EDITED_ARTICLE':
+			return {
+				...state,
+				editingArticle: {}
 			};
 		default:
 			return state;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import CreateNewArticle from '../components/CreateNewArticle';
+import EditArticle from '../components/EditArticle';
 
 import actions from '../actions';
 import styles from './Console.css';
@@ -12,6 +13,9 @@ class Console extends React.Component {
 		const {
 			consoleBar,
 			newArticle,
+			editingArticle,
+			editingArticleTitle,
+			editingArticleContent,
 			elementStatus,
 			currentArticle,
 			switchComponent,
@@ -19,7 +23,11 @@ class Console extends React.Component {
 			editNewArticleTitle,
 			editNewArticleContent,
 			saveNewArticle,
-			deleteArticle
+			deleteArticle,
+			toggleConsoleDiv,
+			loadCurrentArticleToEditor,
+			saveEditedArticle,
+			updateCurrentArticle
 		} = this.props
 		return (
 			<div className={`${styles.consoleDiv} ${elementStatus.consoleDiv ? '': styles.hidden}`}>
@@ -28,7 +36,22 @@ class Console extends React.Component {
 					newArticle={newArticle}
 					editNewArticleTitle={editNewArticleTitle}
 					editNewArticleContent={editNewArticleContent}
-					onSubmit={ e => saveNewArticle(newArticle)}
+					onSubmit={ e => {
+						saveNewArticle(newArticle);
+						switchComponent('init');
+						toggleConsoleDiv();
+					}}
+				/>
+				<EditArticle
+					display={!!elementStatus.edit}
+					editingArticle={editingArticle}
+					editingArticleTitle={editingArticleTitle}
+					editingArticleContent={editingArticleContent}
+					onSubmit={ e => {
+						saveEditedArticle(editingArticle);
+						switchComponent('init');
+						toggleConsoleDiv();
+					}}
 				/>
 
 				<form onSubmit={ e => {
@@ -39,11 +62,16 @@ class Console extends React.Component {
 							editConsoleBar('');
 							break;
 						case 'edit':
+							loadCurrentArticleToEditor(currentArticle);
 							switchComponent('edit');
 							editConsoleBar('');
 							break;
 						case 'delete':
 							deleteArticle(currentArticle.id);
+							editConsoleBar('');
+							break;
+						case 'init':
+							switchComponent('init');
 							editConsoleBar('');
 							break;
 						default:
@@ -81,6 +109,7 @@ class Console extends React.Component {
 const mapStateToProps = state => ({
 	consoleBar: state.consoleDiv.consoleBar,
 	newArticle: state.consoleDiv.newArticle,
+	editingArticle: state.consoleDiv.editingArticle,
 	elementStatus: state.consoleDiv.elementStatus,
 	currentArticle: state.currentArticle
 });
